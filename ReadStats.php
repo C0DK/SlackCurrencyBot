@@ -1,8 +1,8 @@
 <?php 
 function getData() {
 	$page = $_GET["page"];
-	$perpage = 100;
-	
+	$daysperpage = 100;
+
 	$stats_JSON = file_get_contents("stats.json");
 	$stats = json_decode($stats_JSON, true);
 
