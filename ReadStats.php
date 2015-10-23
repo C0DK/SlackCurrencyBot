@@ -17,10 +17,17 @@ function getData() {
 		$jsArray .= ", '" . $currency."'";
 	}
 	$jsArray .= "],\n";
-
+	$skip = 100
+	$i = 0;
 	foreach($stats as $stat) {
 		if(!$stat["messages"])
 			$stat["messages"] = 0;
+
+		if($i <= $skip){
+			$i++;
+			continue;
+		}
+
 		$jsArray .= "['" . $stat["ts"]."',".$stat["messages"].""; //.
 		foreach ($currencyList as $currency) {
 			if (array_key_exists($currency, $stat["currencies"]))
