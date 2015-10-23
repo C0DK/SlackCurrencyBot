@@ -25,7 +25,7 @@ function getData() {
 
 		if($i <= $skip){
 			$i++;
-			continue;
+			#continue;
 		}
 
 		$jsArray .= "['" . $stat["ts"]."',".$stat["messages"].""; //.
