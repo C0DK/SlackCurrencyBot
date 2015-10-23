@@ -1,14 +1,14 @@
 <?php 
 function getData() {
-	$page = !empty( $_GET['page'] ) ? (int) $_GET['page'] : 1;
-	
-	$perpage = 100;
 
 	$stats_JSON = file_get_contents("stats.json");
 	$stats = json_decode($stats_JSON, true);
 	$total = count($stats);
+	
+	$perpage = 100;
 	$totalPages = ceil( $total / $perpage );
 
+	$page = !empty( $_GET['page'] ) ? (int) $_GET['page'] : 1;
 	$page = max($page, 1); //side 1 når $_GET['page'] <= 0
 	$page = min($page, $totalPages); //sidste side når $_GET['page'] > $totalPages
 
