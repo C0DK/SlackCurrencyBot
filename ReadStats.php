@@ -1,13 +1,21 @@
 <?php 
 function getData() {
-	$page = $_GET["page"];
-	$daysperpage = 100;
+	$page = !empty( $_GET['page'] ) ? (int) $_GET['page'] : 1;
+	
+	$perpage = 100;
 
 	$stats_JSON = file_get_contents("stats.json");
 	$stats = json_decode($stats_JSON, true);
+	$total = count($stats);
+	$totalPages = ceil( $total / $perpage );
 
-	$CurrencyNum = count($stats[count($stats) - 1]["currencies"]);
+	$page = max($page, 1); //side 1 når $_GET['page'] <= 0
+	$page = min($page, $totalPages); //sidste side når $_GET['page'] > $totalPages
 
+	$offset = ($page - 1) * $perpage;
+	if( $offset < 0 ) $offset = 0;
+
+	$CurrencyNum = count($stats[$total - 1]["currencies"]);
 	$currencyList;
 
 	$jsArray = "['Timestamp','messages'"; //
@@ -17,9 +25,8 @@ function getData() {
 		$jsArray .= ", '" . $currency."'";
 	}
 	$jsArray .= "],\n";
-	$skip = 100
-	$i = 0;
-	foreach($stats as $stat) {
+
+	foreach(array_slice( $stats, $offset, $perpage ) as $stat) {
 		if(!$stat["messages"])
 			$stat["messages"] = 0;
 
