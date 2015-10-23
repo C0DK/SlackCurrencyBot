@@ -4,7 +4,7 @@ function getData() {
 	$stats_JSON = file_get_contents("stats.json");
 	$stats = json_decode($stats_JSON, true);
 	$total = count($stats);
-	
+
 	$perpage = 100;
 	$totalPages = ceil( $total / $perpage );
 
@@ -53,16 +53,7 @@ function getData() {
 ?>
 <html>
 	<head>
-		<script type="text/javascript"
-						src="https://www.google.com/jsapi?autoload={
-						'modules':[{
-							'name':'visualization',
-							'version':'1',
-							'packages':['corechart']
-						}]
-					}">
-		</script>
- 
+		<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization', 'version':'1', 'packages':['corechart']}]}"></script>
 		<script type="text/javascript">
 			google.setOnLoadCallback(drawChart);
  
@@ -75,11 +66,11 @@ function getData() {
 					title: 'Sum of the different kind of currencies',
 					curveType: 'function',
 					legend: { position: 'bottom' },
-									vAxis: {
-													viewWindow: {
-																min:0
-																}
-												}
+					vAxis: {
+						viewWindow: {
+							min:0
+						}
+					}
 				};
  
 				var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
